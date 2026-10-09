@@ -10,8 +10,8 @@ The Nuvoton MS51 BSP/device headers and the Keil startup file are included under
 - Meter slave ID: `5`.
 - Serial format: `9600 baud, 8 data bits, even parity, 1 stop bit (8E1)`.
 - Function: holding-register read (`03`).
-- Read starts at protocol offset `7` (display/manual register `40008`) and reads
-  ten consecutive registers through `40017`.
+- Read starts at protocol offset `0` (holding register `40001`) and reads ten
+  consecutive registers through `40010`.
 - RS-485 port 2 is a Modbus RTU slave with controller ID `1`, also at `9600 8E1`.
 - Both RS-485 ports generate and check the even-parity ninth UART bit.
 
@@ -28,7 +28,7 @@ registers starting at `40001`, add `40001` to the offset:
 | 0 | 40001 | Relay 1 state (`0` off, `1` on) | Read/write |
 | 1 | 40002 | Relay 2 state (`0` off, `1` on) | Read/write |
 | 2 | 40003 | Relay 3 state (`0` off, `1` on) | Read/write |
-| 3-12 | 40004-40013 | Meter registers 40008-40017, in order | Read only |
+| 3-12 | 40004-40013 | Meter registers 40001-40010, in order | Read only |
 
 Use function `03` to read holding registers and function `06` or `10` to write
 relay states. The firmware pulses the matching set/reset coil only when a
@@ -62,7 +62,7 @@ relay's requested state changes.
    `Output`.
 3. Program the generated HEX with Nu-Link. On startup the firmware resets all
    three relays to off and begins polling the meter.
-4. With the meter connected, confirm the LCD reports register `40008` as valid
+4. With the meter connected, confirm the LCD reports register `40001` as valid
    and the meter data appears in the port 2 register map. The two controller
    status LEDs turn on only while meter data is valid.
 5. From the Modbus master on port 2, read offsets `0-12`. Write value `1` and

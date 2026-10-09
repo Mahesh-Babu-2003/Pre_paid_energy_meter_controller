@@ -15,7 +15,7 @@ static void InterfaceTest_ShowStatus(void)
     uint16_t meter_value;
 
     LCD_SetCursor(0, 0);
-    LCD_WriteText("40008:");
+    LCD_WriteText("40001:");
     if (RS485_IsMeterDataValid())
     {
         meter_value = RS485_GetMeterRegister(0);

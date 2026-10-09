@@ -13,7 +13,7 @@ typedef struct
 
 void RS485_TestInit(void);
 void RS485_Poll(RS485_TestResult *result);
-/* Meter register index 0 is holding register 40008; 9 is 40017. */
+/* Meter register index 0 is holding register 40001; 9 is 40010. */
 uint16_t RS485_GetMeterRegister(uint8_t meter_register_index);
 uint8_t RS485_IsMeterDataValid(void);
 uint8_t RS485_GetRelayState(uint8_t relay);

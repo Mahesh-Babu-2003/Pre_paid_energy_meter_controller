@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   I2C_PROBE                                                         10/09/2026 18:05:22 PAGE 1   
+C51 COMPILER V9.60.0.0   I2C_PROBE                                                         10/09/2026 18:38:30 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE I2C_PROBE
@@ -62,7 +62,7 @@ line level    source
   50   1          if (!acknowledge && I2STAT != 0x58) return 0;
   51   1          *value = I2DAT;
   52   1          return 1;
-C51 COMPILER V9.60.0.0   I2C_PROBE                                                         10/09/2026 18:05:22 PAGE 2   
+C51 COMPILER V9.60.0.0   I2C_PROBE                                                         10/09/2026 18:38:30 PAGE 2   
 
   53   1      }
   54          
@@ -126,7 +126,7 @@ line level    source
  112   1          if (!I2C_Start()) goto eeprom_error;
  113   1          if (!I2C_Write((uint8_t)((EEPROM_ADDR << 1) | 1), 0x40)) goto eeprom_error;
  114   1          if (!I2C_Read(0, value)) goto eeprom_error;
-C51 COMPILER V9.60.0.0   I2C_PROBE                                                         10/09/2026 18:05:22 PAGE 3   
+C51 COMPILER V9.60.0.0   I2C_PROBE                                                         10/09/2026 18:38:30 PAGE 3   
 
  115   1          return I2C_Stop();
  116   1      

@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   INTERFACE_TEST                                                    10/09/2026 18:05:21 PAGE 1   
+C51 COMPILER V9.60.0.0   INTERFACE_TEST                                                    10/09/2026 18:38:30 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE INTERFACE_TEST
@@ -27,7 +27,7 @@ line level    source
   15   1          uint16_t meter_value;
   16   1      
   17   1          LCD_SetCursor(0, 0);
-  18   1          LCD_WriteText("40008:");
+  18   1          LCD_WriteText("40001:");
   19   1          if (RS485_IsMeterDataValid())
   20   1          {
   21   2              meter_value = RS485_GetMeterRegister(0);
@@ -62,7 +62,7 @@ line level    source
   50   1          LCD_SetCursor(0, 0);
   51   1          LCD_WriteText("PREPAID IF TEST ");
   52   1          LCD_SetCursor(1, 0);
-C51 COMPILER V9.60.0.0   INTERFACE_TEST                                                    10/09/2026 18:05:21 PAGE 2   
+C51 COMPILER V9.60.0.0   INTERFACE_TEST                                                    10/09/2026 18:38:30 PAGE 2   
 
   53   1          LCD_WriteText("MS51PC0AE        ");
   54   1      
@@ -126,7 +126,7 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    HDATA SIZE       =   ----    ----
    XDATA CONST SIZE =   ----    ----
    FAR CONST SIZE   =   ----    ----
-C51 COMPILER V9.60.0.0   INTERFACE_TEST                                                    10/09/2026 18:05:21 PAGE 3   
+C51 COMPILER V9.60.0.0   INTERFACE_TEST                                                    10/09/2026 18:38:30 PAGE 3   
 
 END OF MODULE INFORMATION.
 
