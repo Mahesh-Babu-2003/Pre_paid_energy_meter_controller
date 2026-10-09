@@ -6,65 +6,39 @@
 
 static I2C_TestResult i2c_result;
 static RS485_TestResult rs485_result;
-static uint8_t previous_key_1;
-static uint8_t previous_key_2;
 static uint8_t previous_key_3;
 static uint8_t screen_page;
 static uint16_t screen_timer;
 
-static void InterfaceTest_RunOutputs(void)
-{
-    uint8_t channel;
-
-    LCD_SetCursor(0, 0);
-    LCD_WriteText("OUTPUT TEST      ");
-    for (channel = 1; channel <= 2; channel++)
-    {
-        Board_SetLed(channel, 1);
-        Board_DelayMs(180);
-        Board_SetLed(channel, 0);
-        Board_DelayMs(100);
-    }
-
-    Board_SetBuzzer(1);
-    Board_DelayMs(120);
-    Board_SetBuzzer(0);
-    Board_DelayMs(80);
-    Board_SetBuzzer(1);
-    Board_DelayMs(120);
-    Board_SetBuzzer(0);
-
-    for (channel = 1; channel <= 3; channel++)
-    {
-        Board_PulseRelay(channel, 1, 120);
-        Board_DelayMs(80);
-        Board_PulseRelay(channel, 0, 120);
-        Board_DelayMs(80);
-    }
-    Board_RelaysOff();
-}
-
 static void InterfaceTest_ShowStatus(void)
 {
+    uint16_t meter_value;
+
     LCD_SetCursor(0, 0);
-    LCD_WriteText("RTC:");
-    LCD_WriteChar(i2c_result.rtc_read_ok ? 'Y' : 'N');
-    LCD_WriteText(" EE:");
-    LCD_WriteChar(i2c_result.eeprom_read_ok ? 'Y' : 'N');
-    LCD_WriteText(" IR:");
-    LCD_WriteChar(Board_IrActive() ? '1' : '0');
+    LCD_WriteText("40008:");
+    if (RS485_IsMeterDataValid())
+    {
+        meter_value = RS485_GetMeterRegister(0);
+        LCD_WriteHex((uint8_t)(meter_value >> 8));
+        LCD_WriteHex((uint8_t)meter_value);
+        LCD_WriteText(" OK ");
+    }
+    else
+    {
+        LCD_WriteText("---- WAIT");
+    }
 
     LCD_SetCursor(1, 0);
-    LCD_WriteText("4851:");
-    LCD_WriteHex(rs485_result.port1_rx_count);
-    LCD_WriteText(" 4852:");
-    LCD_WriteHex(rs485_result.port2_rx_count);
+    LCD_WriteText("RLY1=");
+    LCD_WriteChar(RS485_GetRelayState(1) ? '1' : '0');
+    LCD_WriteText(" 2=");
+    LCD_WriteChar(RS485_GetRelayState(2) ? '1' : '0');
+    LCD_WriteText(" 3=");
+    LCD_WriteChar(RS485_GetRelayState(3) ? '1' : '0');
 }
 
 void InterfaceTest_Init(void)
 {
-    previous_key_1 = 0;
-    previous_key_2 = 0;
     previous_key_3 = 0;
     screen_page = 0;
     screen_timer = 0;
@@ -78,7 +52,6 @@ void InterfaceTest_Init(void)
     LCD_SetCursor(1, 0);
     LCD_WriteText("MS51PC0AE        ");
 
-    InterfaceTest_RunOutputs();
     I2C_RunReadOnlyTests(&i2c_result);
 
     LCD_Command(0x01);
@@ -87,34 +60,18 @@ void InterfaceTest_Init(void)
 
 void InterfaceTest_Poll(void)
 {
-    uint8_t key_1;
-    uint8_t key_2;
     uint8_t key_3;
 
     RS485_Poll(&rs485_result);
-    key_1 = Board_KeyPressed(1);
-    key_2 = Board_KeyPressed(2);
+    Board_SetLed(1, RS485_IsMeterDataValid());
+    Board_SetLed(2, RS485_IsMeterDataValid());
     key_3 = Board_KeyPressed(3);
 
-    if (key_1 && !previous_key_1)
-    {
-        RS485_SendManualTest(1);
-    }
-    if (key_2 && !previous_key_2)
-    {
-        RS485_SendManualTest(2);
-    }
     if (key_3 && !previous_key_3)
     {
         screen_page ^= 1;
-        if (screen_page == 0)
-        {
-            I2C_RunReadOnlyTests(&i2c_result);
-        }
     }
 
-    previous_key_1 = key_1;
-    previous_key_2 = key_2;
     previous_key_3 = key_3;
 
     if (screen_timer >= 500)
@@ -127,9 +84,14 @@ void InterfaceTest_Poll(void)
         else
         {
             LCD_SetCursor(0, 0);
-            LCD_WriteText("KEY1=485-1 TX   ");
+            LCD_WriteText("RTC:");
+            LCD_WriteChar(i2c_result.rtc_read_ok ? 'Y' : 'N');
+            LCD_WriteText(" EE:");
+            LCD_WriteChar(i2c_result.eeprom_read_ok ? 'Y' : 'N');
             LCD_SetCursor(1, 0);
-            LCD_WriteText("KEY2=485-2 TX   ");
+            LCD_WriteText("IR:");
+            LCD_WriteChar(Board_IrActive() ? '1' : '0');
+            LCD_WriteText(" RS1:MASTER");
         }
     }
 

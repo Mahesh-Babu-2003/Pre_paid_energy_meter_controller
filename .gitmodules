@@ -1,3 +1,0 @@
-[submodule "PECM/vendor/MS51_BSP"]
-	path = PECM/vendor/MS51_BSP
-	url = https://github.com/OpenNuvoton/MS51_BSP.git

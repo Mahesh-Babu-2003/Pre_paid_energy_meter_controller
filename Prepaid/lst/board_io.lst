@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   BOARD_IO                                                          10/09/2026 12:00:21 PAGE 1   
+C51 COMPILER V9.60.0.0   BOARD_IO                                                          10/09/2026 18:05:21 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE BOARD_IO
@@ -62,7 +62,7 @@ line level    source
   50   1          P03_PUSHPULL_MODE;
   51   1          P04_PUSHPULL_MODE;
   52   1          P05_PUSHPULL_MODE;
-C51 COMPILER V9.60.0.0   BOARD_IO                                                          10/09/2026 12:00:21 PAGE 2   
+C51 COMPILER V9.60.0.0   BOARD_IO                                                          10/09/2026 18:05:21 PAGE 2   
 
   53   1          P10_PUSHPULL_MODE;
   54   1          P11_PUSHPULL_MODE;
@@ -80,9 +80,9 @@ line level    source
   66   1          P35_INPUT_MODE;
   67   1          P24_INPUT_MODE;
   68   1      
-  69   1          P37_QUASI_MODE;
-  70   1          P36_INPUT_MODE;
-  71   1          P06_QUASI_MODE;
+  69   1          P37_INPUT_MODE;
+  70   1          P36_QUASI_MODE;
+  71   1          P06_PUSHPULL_MODE;
   72   1          P07_INPUT_MODE;
   73   1          P13_OPENDRAIN_MODE;
   74   1          P14_OPENDRAIN_MODE;
@@ -126,7 +126,7 @@ line level    source
  112   1          SFRS = 0;
  113   1          if (channel == 1)
  114   1          {
-C51 COMPILER V9.60.0.0   BOARD_IO                                                          10/09/2026 12:00:21 PAGE 3   
+C51 COMPILER V9.60.0.0   BOARD_IO                                                          10/09/2026 18:05:21 PAGE 3   
 
  115   2              if (set_coil) RELAY_SET_1_PIN = 1;
  116   2              else RELAY_RESET_1_PIN = 1;
@@ -190,7 +190,7 @@ line level    source
  174   1          if (key == 3) return (KEY_3_PIN == 0);
  175   1          return 0;
  176   1      }
-C51 COMPILER V9.60.0.0   BOARD_IO                                                          10/09/2026 12:00:21 PAGE 4   
+C51 COMPILER V9.60.0.0   BOARD_IO                                                          10/09/2026 18:05:21 PAGE 4   
 
  177          
  178          uint8_t Board_IrActive(void)

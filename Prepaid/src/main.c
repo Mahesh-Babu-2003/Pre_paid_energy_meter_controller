@@ -8,7 +8,8 @@
 
 void main(void)
 {
-    MODIFY_HIRC(HIRC_24);
+
+	MODIFY_HIRC(HIRC_24);
     SFRS = 0;
     Board_Init();
     I2C_TestInit();
